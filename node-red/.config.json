@@ -485,20 +485,21 @@
     }
    }
   },
-  "node-red-contrib-mqtt-broker": {
-   "name": "node-red-contrib-mqtt-broker",
-   "version": "0.2.4",
+  "node-red-node-mysql": {
+   "name": "node-red-node-mysql",
+   "version": "0.0.18",
    "local": false,
    "nodes": {
-    "mosca-mqtt-broker": {
-     "name": "mosca-mqtt-broker",
+    "mysql": {
+     "name": "mysql",
      "types": [
-      "mosca in"
+      "MySQLdatabase",
+      "mysql"
      ],
      "enabled": true,
      "local": false,
-     "module": "node-red-contrib-mqtt-broker",
-     "file": "/home/knthinh/node_modules/node-red-contrib-mqtt-broker/mosca.js"
+     "module": "node-red-node-mysql",
+     "file": "/home/knthinh/.nvm/versions/node/v11.14.0/lib/node_modules/node-red-node-mysql/68-mysql.js"
     }
    }
   },
@@ -517,52 +518,7 @@
      "enabled": true,
      "local": false,
      "module": "node-red-contrib-rdkafka",
-     "file": "/home/knthinh/node_modules/node-red-contrib-rdkafka/rdkafka/rdkafka.js"
-    }
-   }
-  },
-  "node-red-contrib-soap": {
-   "name": "node-red-contrib-soap",
-   "version": "0.1.0",
-   "local": false,
-   "nodes": {
-    "soap": {
-     "name": "soap",
-     "types": [
-      "soap request"
-     ],
-     "enabled": true,
-     "local": false,
-     "module": "node-red-contrib-soap",
-     "file": "/home/knthinh/node_modules/node-red-contrib-soap/soap-node.js"
-    },
-    "soap-config": {
-     "name": "soap-config",
-     "types": [
-      "soap-config"
-     ],
-     "enabled": true,
-     "local": false,
-     "module": "node-red-contrib-soap",
-     "file": "/home/knthinh/node_modules/node-red-contrib-soap/soap-config.js"
-    }
-   }
-  },
-  "node-red-node-mysql": {
-   "name": "node-red-node-mysql",
-   "version": "0.0.18",
-   "local": false,
-   "nodes": {
-    "mysql": {
-     "name": "mysql",
-     "types": [
-      "MySQLdatabase",
-      "mysql"
-     ],
-     "enabled": true,
-     "local": false,
-     "module": "node-red-node-mysql",
-     "file": "/home/knthinh/node_modules/node-red-node-mysql/68-mysql.js"
+     "file": "/home/knthinh/.nvm/versions/node/v11.14.0/lib/node_modules/node-red-contrib-rdkafka/rdkafka/rdkafka.js"
     }
    }
   }
@@ -587,7 +543,9 @@
      "view-grid-size": 20,
      "view-node-status": true,
      "view-node-show-label": true,
-     "view-show-tips": true
+     "view-show-tips": true,
+     "view-snap-grid": true,
+     "view-show-grid": true
     }
    }
   }
