@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo stopping mysqld_safe
+pkill mysqld
+sleep 10

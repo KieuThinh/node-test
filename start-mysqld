@@ -1,0 +1,15 @@
+#!/bin/bash
+
+cd $MYSQL_HOME
+
+echo Starting mysqld_safe
+$MYSQL_HOME/bin/mysqld_safe --defaults-file=~/.my.cnf --user=$USER &
+
+sleep 10
+
+echo "Setting root password"
+$MYSQL_HOME/bin/mysqladmin -u root password 'mysql'
+
+#$MYSQL_HOME/bin/mysql -u root -pmysql < $startDir/$scriptDir/create_db.mysql
+#/$MYSQL_HOME/bin/mysql -u root -pmysql < $startDir/$scriptDir/create_db.mysql
+#$MYSQL_HOME/bin/mysql -u root -pmysql < /data/ems/opt/linux/create_db.mysql

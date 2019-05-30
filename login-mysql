@@ -1,0 +1,4 @@
+#!//bin/bash
+
+echo "login to mysql"
+$MYSQL_HOME/bin/mysql -uroot -pmysql --socket=$MYSQL_DATA/mysql/mysql.sock;

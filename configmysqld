@@ -1,0 +1,111 @@
+#!//bin/bash
+
+scriptDir=`dirname $0`
+
+startDir=`pwd`
+
+if [[ -z "$LOCALSTORAGE" ]] ; then
+   LOCALSTORAGE=$MYSQL_DATA
+fi
+
+if [[ ! -d $LOCALSTORAGE ]]; then
+   mkdir -p $LOCALSTORAGE
+fi
+
+if [[ -d $LOCALSTORAGE/mysql ]]
+then
+    rm -rf $LOCALSTORAGE/mysql.bak
+    mv $LOCALSTORAGE/mysql $LOCALSTORAGE/mysql.bak
+fi
+
+if [[ ! -d $LOCALSTORAGE ]]; then
+   echo "Sorry, the specified local storage ($LOCALSTORAGE) is not available"
+   echo "Check with your host administrator"
+   exit 1
+fi
+
+if [ -z "$NMHN_USER_IPADDR" ] ; then
+   echo "NMHN_USER_IPADDR no defined, ..."
+   exit 1
+fi
+
+if [[ -f ~/.my.cnf ]]
+then
+    mv ~/.my.cnf  ~/.my.cnf.bak
+fi
+
+# TODO this contains settings that are project/release specific:
+
+echo "[mysqld]" > ~/.my.cnf
+echo "datadir=$LOCALSTORAGE/mysql/data" >> ~/.my.cnf
+echo "pid-file=$LOCALSTORAGE/mysql/data/mysqld.pid" >> ~/.my.cnf
+echo "basedir=$MYSQL_HOME" >> ~/.my.cnf
+echo "socket=$LOCALSTORAGE/mysql/mysql.sock" >> ~/.my.cnf
+echo "bind-address=$NMHN_USER_IPADDR" >> ~/.my.cnf
+echo "port=3306" >> ~/.my.cnf
+echo "" >> ~/.my.cnf
+echo "tmpdir=$LOCALSTORAGE/mysql/tmpdir" >> ~/.my.cnf
+echo "expire_logs_days=2" >> ~/.my.cnf
+echo "max_connections=2000" >> ~/.my.cnf
+echo "max_connect_errors=10000" >> ~/.my.cnf
+echo "max_allowed_packet=128M" >> ~/.my.cnf
+echo "thread_cache_size=100" >> ~/.my.cnf
+echo "table_definition_cache=10000" >> ~/.my.cnf
+echo "table_open_cache=10000" >> ~/.my.cnf
+echo "log-bin=emlplatform-bin" >> ~/.my.cnf
+echo "binlog-do-db=emlplatform" >> ~/.my.cnf
+echo "#wireless db" >> ~/.my.cnf
+echo "binlog-do-db=JOBSCHEDULER" >> ~/.my.cnf
+echo "binlog-do-db=QUARTZ" >> ~/.my.cnf
+echo "binlog-do-db=jobdb" >> ~/.my.cnf
+echo "binlog-do-db=notifdb" >> ~/.my.cnf
+echo "sync-binlog=1" >> ~/.my.cnf
+echo "transaction-isolation=READ-COMMITTED" >> ~/.my.cnf
+echo "#default-table-type=InnoDB" >> ~/.my.cnf
+echo "default-storage-engine=InnoDB" >> ~/.my.cnf
+echo "innodb" >> ~/.my.cnf
+echo "innodb_file_per_table" >> ~/.my.cnf
+echo "innodb_file_format=barracuda" >> ~/.my.cnf
+echo "innodb_data_file_path=ibdata:100M:autoextend" >> ~/.my.cnf
+echo "innodb_flush_log_at_trx_commit=0" >> ~/.my.cnf
+echo "innodb-stats-on-metadata=0" >> ~/.my.cnf
+echo "#HAFEAT innodb_safe_binlog" >> ~/.my.cnf
+echo "character_set_server=utf8" >> ~/.my.cnf
+echo "collation_server=utf8_bin" >> ~/.my.cnf
+echo "innodb_buffer_pool_size=70M" >> ~/.my.cnf
+echo "innodb_additional_mem_pool_size=10M" >> ~/.my.cnf
+echo "innodb_log_buffer_size=8M" >> ~/.my.cnf
+echo "innodb_log_file_size=10M" >> ~/.my.cnf
+echo "innodb_log_files_in_group=3" >> ~/.my.cnf
+echo "innodb_mirrored_log_groups=1" >> ~/.my.cnf
+echo "innodb_file_io_threads=4" >> ~/.my.cnf
+echo "innodb_lock_wait_timeout=300" >> ~/.my.cnf
+echo "innodb_thread_concurrency=0" >> ~/.my.cnf
+echo "innodb_doublewrite=1" >> ~/.my.cnf
+echo "binlog_format=row" >> ~/.my.cnf
+echo "net_read_timeout=120" >> ~/.my.cnf
+echo "slave-net-timeout=600" >> ~/.my.cnf
+echo "key_buffer=20M" >> ~/.my.cnf
+echo "[client]" >> ~/.my.cnf
+echo "socket=$LOCALSTORAGE/mysql/mysql.sock" >> ~/.my.cnf
+
+
+cd $MYSQL_HOME
+
+mkdir -p $LOCALSTORAGE/mysql/data
+mkdir -p $LOCALSTORAGE/mysql/tmpdir
+$MYSQL_HOME/scripts/mysql_install_db --datadir=$MYSQL_DATA/mysql/data --user=$USER
+
+#echo Starting mysqld_safe
+#./bin/mysqld_safe --defaults-file=~/.my.cnf &
+#$MYSQL_HOME/bin/mysqld_safe --defaults-file=~/.my.cnf --user=$USER &
+
+#sleep 10
+
+#echo "Setting root password"
+#./bin/mysqladmin -u root password 'mysql'
+#$MYSQL_HOME/bin/mysqladmin -u root password 'mysql'
+
+#$MYSQL_HOME/bin/mysql -u root -pmysql < $startDir/$scriptDir/create_db.mysql
+#/$MYSQL_HOME/bin/mysql -u root -pmysql < $startDir/$scriptDir/create_db.mysql
+#$MYSQL_HOME/bin/mysql -u root -pmysql < /data/ems/opt/linux/create_db.mysql
