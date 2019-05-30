@@ -269,7 +269,18 @@ module.exports = {
     editorTheme: {
         projects: {
             // To enable the Projects feature, set this value to true
-            enabled: false
+            enabled: true
         }
-    }
+    },
+    adminAuth: {
+	sessionExpiryTime: 400,
+        type: "credentials",
+        users: [{
+            username: "admin",
+            password: "$2a$08$Y9ix4JMIdMQ9WsKFsNoMluoj9S0CYT2RTXo6YiEPy4vzJuPcnODF2",
+            permissions: "*"
+        }]
+    },
+    httpNodeAuth: {user:"user",pass:"$2a$08$Y9ix4JMIdMQ9WsKFsNoMluoj9S0CYT2RTXo6YiEPy4vzJuPcnODF2"},
+    httpStaticAuth: {user:"user",pass:"$2a$08$Y9ix4JMIdMQ9WsKFsNoMluoj9S0CYT2RTXo6YiEPy4vzJuPcnODF2"}
 }

@@ -9,14 +9,6 @@ module.exports = {
     watch: false
   },
   {
-    name: 'node2-test',
-    script: '/home/knthinh//.nvm/versions/node/v11.14.0/bin/node-red',
-    args: 'one two',
-    instances: 1,
-    autorestart: true,
-    watch: false
-  },
-  {
     name: 'zookeeper',
     script: '/home/knthinh/tools/kafka/kafka_2.12-2.2.0/bin/zookeeper-server-start.sh',
     args: '/home/knthinh/tools/kafka/kafka_2.12-2.2.0/config/zookeeper.properties',
