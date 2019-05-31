@@ -24,6 +24,14 @@ module.exports = {
     autorestart: true,
     watch: false
   },
+  {
+    name: 'pm2-web',
+    script: '/home/knthinh//.nvm/versions/node/v11.14.0/bin/pm2-web',
+    args: '--config /home/knthinh/node-project/temp/.config/pm2-web/config.json',
+    instances: 1,
+    autorestart: true,
+    watch: false
+  },
 ],
 
   deploy : {
